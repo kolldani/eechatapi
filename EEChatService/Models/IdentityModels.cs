@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 
 namespace EEChatService.Models
 {
@@ -16,6 +17,9 @@ namespace EEChatService.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        // User's screen name
+        public string ScreenName { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -23,6 +27,9 @@ namespace EEChatService.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+            Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
         }
         
         public static ApplicationDbContext Create()

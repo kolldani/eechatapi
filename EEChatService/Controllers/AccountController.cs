@@ -62,7 +62,7 @@ namespace EEChatService.Controllers
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+                            };
         }
 
         // POST api/Account/Logout
@@ -327,7 +327,7 @@ namespace EEChatService.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, ScreenName = model.ScreenName };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
