@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EEChatService", "EEChatServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EEChatService.Tests", "EEChatService.Tests\EEChatService.Tests.csproj", "{2CCA90A7-6381-47BD-97F7-193EE6F1753C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EEChatService.Data", "EEChatService.Data\EEChatService.Data.csproj", "{431FB33C-6E15-46F0-A5BF-BFA061B09101}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2CCA90A7-6381-47BD-97F7-193EE6F1753C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CCA90A7-6381-47BD-97F7-193EE6F1753C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CCA90A7-6381-47BD-97F7-193EE6F1753C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{431FB33C-6E15-46F0-A5BF-BFA061B09101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{431FB33C-6E15-46F0-A5BF-BFA061B09101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{431FB33C-6E15-46F0-A5BF-BFA061B09101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{431FB33C-6E15-46F0-A5BF-BFA061B09101}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
