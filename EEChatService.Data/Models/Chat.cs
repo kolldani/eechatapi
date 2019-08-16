@@ -22,6 +22,7 @@ namespace EEChatService.Data.Models
         /// As users are anonymous we identify them via this screen name.
         /// It must be unique.
         /// </summary>
+        [Required, StringLength(100)]
         public string UserScreenName { get; set; } = string.Empty;
 
         /// <summary>

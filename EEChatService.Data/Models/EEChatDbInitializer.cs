@@ -27,12 +27,12 @@ namespace EEChatService.Data.Models
                 new ChatMessage()
             {
                 MessageText = "Some text.",
-                Chat = chat,
+                ChatId = chat.Id,
             },
                 new ChatMessage()
             {
                 MessageText = "Some other text.",
-                Chat = chat,
+                ChatId = chat.Id,
         }
                 };
 

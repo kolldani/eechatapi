@@ -25,9 +25,22 @@ namespace EEChatService.Data.Models
         public Chat Chat { get; set; }
 
         /// <summary>
+        ///  Screen name of sender.
+        ///  In case of an authenticated user it comes from his/her ScreenName property, in case of an anonymous user it comes from the Chat.UserScreenName property.
+        /// </summary>
+        [Required, StringLength(100)]
+        public string SenderName { get; set; } = string.Empty;
+
+/// <summary>
+/// The type of sender: anonymous user or an authenticated operator of EE inc.
+/// </summary>
+        public UserType SenderType { get; set; }
+
+        /// <summary>
         /// The text of a chat message.
         /// </summary>
-        public string MessageText { get; set; } = string.Empty;
+        [Required]
+                public string MessageText { get; set; } = string.Empty;
 
         /// <summary>
         ///  The date and time when client sent the chat message.
@@ -39,4 +52,10 @@ namespace EEChatService.Data.Models
         /// </summary>
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
+}
+
+public enum UserType
+{
+    AnonymousUser,
+    Operator
 }
