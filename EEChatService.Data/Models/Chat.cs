@@ -32,8 +32,9 @@ namespace EEChatService.Data.Models
 
         /// <summary>
         /// Shows whether a chat is active or not.
+        /// A chat becomes active when least one message is already added to it. 
         /// </summary>
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = false;
 
         /// <summary>
         /// Messages contained by our chat.

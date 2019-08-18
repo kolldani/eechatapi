@@ -33,7 +33,7 @@ namespace EEChatService.Data.Models
             {
                 MessageText = "Some other text.",
                 ChatId = chat.Id,
-        }
+        }       
                 };
 
             context.ChatMessages.AddRange(chatMessages);
