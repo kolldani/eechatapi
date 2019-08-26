@@ -37,6 +37,18 @@ namespace EEChatService.Data.Models
         public bool IsActive { get; set; } = false;
 
         /// <summary>
+        /// The date and time when last message was added to this chat.
+        /// Comes from ChatMessage.CreatedDateTime property.
+        /// </summary>
+        public DateTime LastMessageCreatedDateTime { get; set; } = DateTime.MinValue;
+
+        /// <summary>
+        /// Shows whether a chat has  already been answered or not.
+        /// It derives from ChatMessage.UserType property: if the last message in a chat was sent by an authenticated user (operator), the chat is regarded as answered, in other case as unanswered.
+        /// </summary>
+        public bool IsAnswered { get; set; } = false;
+
+        /// <summary>
         /// Messages contained by our chat.
         /// </summary>
         public IList<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
