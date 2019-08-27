@@ -15,16 +15,6 @@ namespace EEChatService.Data.Models
         public Guid Id { get; set; } = Guid.NewGuid();
 
         /// <summary>
-        ///  Id of the chat that this message is related to.
-        /// </summary>
-        public Guid ChatId { get; set; }
-
-        /// <summary>
-        ///  The Chat object that this message is related to.
-        /// </summary>
-        public Chat Chat { get; set; }
-
-        /// <summary>
         ///  Screen name of sender.
         ///  In case of an authenticated user it comes from his/her ScreenName property, in case of an anonymous user it comes from the Chat.UserScreenName property.
         /// </summary>
@@ -37,20 +27,30 @@ namespace EEChatService.Data.Models
         public UserType SenderType { get; set; }
 
         /// <summary>
+        ///  The date and time when client sent the chat message.
+        /// </summary>
+        public DateTime SentDate { get; set; }
+
+        /// <summary>
         /// The text of a chat message.
         /// </summary>
         [Required]
                 public string MessageText { get; set; } = string.Empty;
 
         /// <summary>
-        ///  The date and time when client sent the chat message.
-        /// </summary>
-        public DateTime SentDate { get; set; }
-
-        /// <summary>
         ///  The date and time when server created the message.
         /// </summary>
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        /// <summary>
+        ///  Id of the chat that this message is related to.
+        /// </summary>
+        public Guid ChatId { get; set; }
+
+        /// <summary>
+        ///  The Chat object that this message is related to.
+        /// </summary>
+        public Chat Chat { get; set; }
     }
 }
 

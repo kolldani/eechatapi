@@ -21,26 +21,32 @@ namespace EEChatService.Data.Models
 
             context.Chats.Add(chat);
 
-            context.SaveChanges();
-
             var chatMessages = new List<ChatMessage>(){
                 new ChatMessage()
             {
-                MessageText = "Some text.",
+                SenderName = "Anonymous user",
+                SenderType = UserType.AnonymousUser,
+                SentDate = DateTime.Now,
+                                MessageText = "Some text.",
                 ChatId = chat.Id,
             },
                 new ChatMessage()
             {
+                    SenderName = "Operator",
+                    SenderType = UserType.Operator,
+                    SentDate = DateTime.Now,
                 MessageText = "Some other text.",
                 ChatId = chat.Id,
-        }       
+        }
                 };
 
             context.ChatMessages.AddRange(chatMessages);
 
+            // Chat already has messages set it active.
+            chat.IsActive = true;
+            chat.LastMessageCreatedDateTime = chatMessages[chatMessages.Count - 1].CreatedDate;
+
             context.SaveChanges();
-
-
         }
     }
 }
