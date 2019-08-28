@@ -33,7 +33,7 @@ namespace EEChatService.Data.Models
                 new ChatMessage()
             {
                     SenderName = "Operator",
-                    SenderType = UserType.Operator,
+                    SenderType = UserType.AnonymousUser,
                     SentDate = DateTime.Now,
                 MessageText = "Some other text.",
                 ChatId = chat.Id,

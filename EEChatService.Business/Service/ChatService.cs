@@ -42,7 +42,7 @@ namespace EEChatService.Business.Service
             }
             catch (Exception e)
             {
-                Logger.Error($"{nameof(CreateChat)} threw an exception: {e.Message}");
+                Logger.Error(e, $"{nameof(CreateChat)} threw an exception: {e.Message}");
                 throw e;
             }
 
@@ -75,7 +75,7 @@ namespace EEChatService.Business.Service
             }
             catch (Exception e)
             {
-                Logger.Error($"{nameof(AddMessageToChat)} threw an exception: {e.Message}");
+                Logger.Error(e, $"{nameof(AddMessageToChat)} threw an exception: {e.Message}");
                 throw e;
             }
         }
@@ -93,22 +93,22 @@ namespace EEChatService.Business.Service
             }
             catch (Exception e)
             {
-                Logger.Error($"{nameof(GetChatList)} threw an exception: {e.Message}");
+                Logger.Error(e, $"{nameof(GetChatList)} threw an exception: {e.Message}");
                 throw e;
             }
 
             return chatList;
         }
 
-        public IList<ChatMessage> GetChatMessages(Guid chatId, DateTime? from = null)
+        public Chat GetChat(Guid chatId, DateTime? from = null)
         {
-            List<ChatMessage> chatMessages = new List<ChatMessage>();
+            Chat chat = null;
 
             try
             {
                 using (var context = new EEChatDataContext(ConnectionString))
                 {
-                    var chat = context.Chats.Find(chatId);
+                    chat = context.Chats.Find(chatId);
                     // If we don't find the chat by ID throw exception.
                     if (chat == null)
                         throw new ChatNotFoundException($"The chat wihh ID ${chatId} cannot be found.");
@@ -122,17 +122,15 @@ namespace EEChatService.Business.Service
                     else
                         query.OrderBy(m => m.CreatedDate);
                     query.Load();
-
-                    chatMessages = (List<ChatMessage>)chat.Messages;
                 }
             }
             catch (Exception e)
             {
-                Logger.Error($"{nameof(GetChatMessages)} threw an exception: {e.Message}");
+                Logger.Error(e, $"{nameof(GetChat)} threw an exception: {e.Message}");
                 throw e;
             }
 
-            return chatMessages;
+            return chat;
         }
 
         public string GetScreenName(Guid chatId)
@@ -152,7 +150,7 @@ namespace EEChatService.Business.Service
             }
             catch (Exception e)
             {
-                Logger.Error($"{nameof(GetScreenName)} threw an exception: {e.Message}");
+                Logger.Error(e, $"{nameof(GetScreenName)} threw an exception: {e.Message}");
                 throw e;
             }
 

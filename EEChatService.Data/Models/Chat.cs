@@ -40,7 +40,7 @@ namespace EEChatService.Data.Models
         /// The date and time when last message was added to this chat.
         /// Comes from ChatMessage.CreatedDateTime property.
         /// </summary>
-        public DateTime LastMessageCreatedDateTime { get; set; } = DateTime.MinValue;
+        public DateTime? LastMessageCreatedDateTime { get; set; } = null;
 
         /// <summary>
         /// Shows whether a chat has  already been answered or not.
