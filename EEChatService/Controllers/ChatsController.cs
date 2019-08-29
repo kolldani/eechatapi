@@ -17,7 +17,7 @@ using NLog;
 namespace EEChatService.Controllers
 {
     [RoutePrefix("api/chats")]
-    [AllowAnonymous]
+    [Authorize]
     public class ChatsController : ApiController
     {
         private readonly IChatService ChatService;
@@ -34,6 +34,7 @@ namespace EEChatService.Controllers
         /// </summary>
         /// <param name="screenName">An unique screen name identifies the anonymous user in this chat.</param>
         /// <returns>The URI of the newly created chat.</returns>
+        [AllowAnonymous]
         [HttpPost]
         [ResponseType(typeof(string))]
         public IHttpActionResult CreateChat([FromBody] string userScreenName)
@@ -66,6 +67,7 @@ namespace EEChatService.Controllers
         /// </summary>
         /// <param name="id">Identifies the chat which the message will be added to.</param>
         /// <param name="model">Contains a new message.</param>
+        [AllowAnonymous]
         [Route("{id}")]
         [HttpPost]
         [ResponseType(typeof(void))]
@@ -78,7 +80,7 @@ namespace EEChatService.Controllers
 
             try
             {
-                if (User.Identity.IsAuthenticated) // User is an operator.
+                    if (User.Identity.IsAuthenticated) // User is an operator.
                 {
                     chatMessage.SenderType = UserType.Operator;
                     var user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
@@ -111,7 +113,6 @@ namespace EEChatService.Controllers
         /// </summary>
         /// <returns>A list of chats without their messages.</returns>
         [HttpGet]
-        [Authorize] // This action is avaylable only for operators.
         [ResponseType(typeof(IList<ChatDTO>))]
         public IHttpActionResult GetChatList()
         {
@@ -143,6 +144,7 @@ namespace EEChatService.Controllers
         /// <param name="id">Identifies a chat.</param>
         /// <param name="from">Optional. If given, filters messages related to chat. CreatedDate of related messages will be greater than from DateTime.</param>
         /// <returns>A DTO containing information about the chat and its messages.</returns>
+        [AllowAnonymous]
         [Route("{id}")]
         [HttpGet]
         [ResponseType(typeof(ChatWithMessagesDTO))]
