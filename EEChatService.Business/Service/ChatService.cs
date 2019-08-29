@@ -62,13 +62,18 @@ namespace EEChatService.Business.Service
 
                     message.ChatId = chat.Id;
                     context.ChatMessages.Add(message);
+                    // If chat is not active, yet, set it as we added a message to it.
                     if (chat.IsActive == false)
                     {
                         chat.IsActive = true;
                     }
                     chat.LastMessageCreatedDateTime = message.CreatedDate;
-                    if (message.SenderType == UserType.Operator)
+                    // If an operator sent the message the chat is regarded as answered, if an anonymous user, it's regarded as unanswered.
+                    // So a chat may change unanswered to answered or vice versa depending on which type of user sent the message.
+                    if (message.SenderType == UserType.Operator && chat.IsAnswered == false)
                         chat.IsAnswered = true;
+                    else if (message.SenderType == UserType.AnonymousUser && chat.IsAnswered == true)
+                        chat.IsAnswered = false;
 
                     context.SaveChanges();
                 }
@@ -88,7 +93,9 @@ namespace EEChatService.Business.Service
             {
                 using (var context = new EEChatDataContext(ConnectionString))
                 {
-                    chatList = context.Chats.Where(c => c.IsActive == true).ToList();
+                    chatList = context.Chats.
+                        Where(c => (c.IsActive == true) && (c.IsAnswered == false))
+                        .ToList();
                 }
             }
             catch (Exception e)
