@@ -51,7 +51,7 @@ namespace EEChatService.Extensions
         }
 
 
-        private static ChatMessageDTO MapToChatMessageDTO(this ChatMessage message)
+        public static ChatMessageDTO MapToChatMessageDTO(this ChatMessage message)
         {
             return new ChatMessageDTO()
             {

@@ -20,20 +20,15 @@ namespace EEChatService.Business.Service
             ConnectionString = connectionString;
         }
 
-        public Guid CreateChat(string screenName)
+        public void CreateChat(Chat chat)
         {
-            var chat = new Chat()
-            {
-                UserScreenName = screenName,
-            };
-
             try
             {
                 using (var context = new EEChatDataContext(ConnectionString))
                 {
                     // Before create the chat we ensure that the given screen name is not in use.
-                    if (context.Chats.Any(c => c.UserScreenName == screenName))
-                        throw new ScreenNameInUseException($"The following screen name is already in use: {screenName}");
+                    if (context.Chats.Any(c => c.UserScreenName == chat.UserScreenName))
+                        throw new ScreenNameInUseException($"The following screen name is already in use: {chat.UserScreenName}");
 
                     context.Chats.Add(chat);
 
@@ -45,8 +40,6 @@ namespace EEChatService.Business.Service
                 Logger.Error(e, $"{nameof(CreateChat)} threw an exception: {e.Message}");
                 throw e;
             }
-
-            return chat.Id;
         }
 
         public void AddMessageToChat(Guid chatId, ChatMessage message)

@@ -33,20 +33,23 @@ namespace EEChatService.Controllers
         /// Creates a chat.
         /// </summary>
         /// <param name="screenName">An unique screen name identifies the anonymous user in this chat.</param>
-        /// <returns>The URI of the newly created chat.</returns>
+        /// <returns>The created chat DTO..</returns>
         [AllowAnonymous]
         [HttpPost]
-        [ResponseType(typeof(string))]
+        [ResponseType(typeof(ChatDTO))]
         public IHttpActionResult CreateChat([FromBody] string userScreenName)
         {
             if (string.IsNullOrEmpty(userScreenName))
                 return BadRequest("'userScreenName' is a mandatory parameter.");
 
-            Guid chatId = Guid.Empty;
+            var chat = new Chat()
+            {
+                UserScreenName = userScreenName,
+            };
 
             try
             {
-                chatId = ChatService.CreateChat(userScreenName);
+                ChatService.CreateChat(chat);
             }
             catch (ScreenNameInUseException e)
             {
@@ -59,7 +62,9 @@ namespace EEChatService.Controllers
                 return InternalServerError();
             }
 
-            return Created(new Uri($"/api/chats/{chatId.ToString()}", UriKind.Relative), $"The chat with ID '{chatId.ToString()}' is Created.");
+            var result = chat.MapToChatDTO();
+
+            return Created(new Uri($"/api/chats/{chat.Id.ToString()}", UriKind.Relative), result);
         }
 
         /// <summary>
@@ -67,10 +72,11 @@ namespace EEChatService.Controllers
         /// </summary>
         /// <param name="id">Identifies the chat which the message will be added to.</param>
         /// <param name="model">Contains a new message.</param>
+        /// <returns>A DTO contains the created message.</returns>
         [AllowAnonymous]
         [Route("{id}")]
         [HttpPost]
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(ChatMessageDTO))]
         public IHttpActionResult SendMessageIntoChat(Guid id, ChatMessageDispatch model)
         {
             if (!ModelState.IsValid)
@@ -105,7 +111,9 @@ namespace EEChatService.Controllers
                 return InternalServerError();
             }
 
-            return Ok();
+            var result = chatMessage.MapToChatMessageDTO();
+
+            return Ok(result);
         }
 
         /// <summary>

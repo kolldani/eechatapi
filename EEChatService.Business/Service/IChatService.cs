@@ -12,9 +12,8 @@ namespace EEChatService.Business.Service
         /// <summary>
         /// Creates a chat.
         /// </summary>
-        /// <param name="screenName">An unique screen name for anonymous user ordered to the created chat, that will identify the user for operators.</param>
-        /// <returns>The unique identifier of chat.</returns>
-        Guid CreateChat(string screenName);
+        /// <param name="chat">A Chat object which among oters contains the unique screen name for user..</param>
+        void CreateChat(Chat chat);
 
         /// <summary>
         /// Adds a new message to the specified chat.
