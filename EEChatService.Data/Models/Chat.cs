@@ -10,7 +10,7 @@ namespace EEChatService.Data.Models
     /// <summary>
     /// This class represents a chat in our data model.
     /// </summary>
-    public class Chat
+    public class Chat : IEquatable<Chat>
     {
         /// <summary>
         /// The unique identifier of a chat.
@@ -52,5 +52,29 @@ namespace EEChatService.Data.Models
         /// Messages contained by our chat.
         /// </summary>
         public IList<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Chat);
+        }
+
+        public bool Equals(Chat other)
+        {
+            if (Object.ReferenceEquals(this, other))
+                return true;
+
+            return other != null &&
+                   Id.Equals(other.Id) &&
+                   UserScreenName == other.UserScreenName;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1679656901;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(UserScreenName);
+
+            return hashCode;
+        }
     }
 }

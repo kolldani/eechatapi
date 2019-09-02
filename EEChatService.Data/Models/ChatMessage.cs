@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EEChatService.Data.Models
 {
-    public class ChatMessage
+    public class ChatMessage : IEquatable<ChatMessage>
     {
         /// <summary>
         /// Unique identifier of a chat message.
@@ -51,6 +51,31 @@ namespace EEChatService.Data.Models
         ///  The Chat object that this message is related to.
         /// </summary>
         public Chat Chat { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ChatMessage);
+        }
+
+        public bool Equals(ChatMessage other)
+        {
+            if (object.ReferenceEquals(this, other))
+                return true;
+
+            return other != null &&
+                   Id.Equals(other.Id) &&
+                   MessageText == other.MessageText &&
+                   ChatId.Equals(other.ChatId);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1391527914;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MessageText);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(ChatId);
+            return hashCode;
+        }
     }
 }
 

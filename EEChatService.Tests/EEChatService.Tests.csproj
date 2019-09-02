@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -108,6 +114,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EEChatService.Business\EEChatService.Business.csproj">
+      <Project>{53fc79bf-6437-4797-af1f-6b230b012fa8}</Project>
+      <Name>EEChatService.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EEChatService.Data\EEChatService.Data.csproj">
+      <Project>{431fb33c-6e15-46f0-a5bf-bfa061b09101}</Project>
+      <Name>EEChatService.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EEChatService\EEChatService.csproj">
       <Project>{D4433D6E-31DE-44F2-813C-1846D4677540}</Project>
       <Name>EEChatService</Name>
